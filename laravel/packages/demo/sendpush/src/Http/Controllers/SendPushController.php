@@ -27,28 +27,24 @@ class SendPushController extends Controller {
 	/**
 	 * Send push message
 	 *
-	 * @param  Integer  $messageId
+	 * @param  \Demo\SendPush\PushMessage  $pushmessage
 	 * @return \Illuminate\Http\Response
 	 */
-	public function sendPushMessage($messageId) {
-    // load push
-		$push = PushMessage::where('id', $messageId)->first();
-		if (empty($push)) return response()->json(['error' => 'not_found', 'message' => 'Not Found!'], 404);
-
+	public function sendPushMessage($pushmessage) {
     // load recipients and update recipients count
 		$users = User::get();
-		$push->sent_at = Carbon::now();
-		$push->recipients_count = $users->count();
-		$push->save();
+		$pushmessage->sent_at = Carbon::now();
+		$pushmessage->recipients_count = $users->count();
+		$pushmessage->save();
 
     // add database notification
-		Notification::send($users, new SendPushNotification($push));
+		Notification::send($users, new SendPushNotification($pushmessage));
 
     // create job for sending push
- 		$job = new SendPush($push);
+ 		$job = new SendPush($pushmessage);
 		//$jobId = app(Dispatcher::class)->dispatch($job); // use this command to dispatch and get job ID
  		dispatch($job);
 
- 		return response()->json(['status' => 'ok', 'recipient_count' => $push->recipients_count]);
+ 		return response()->json(['status' => 'ok', 'recipient_count' => $pushmessage->recipients_count]);
 	}
 }
