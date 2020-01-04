@@ -1,0 +1,15 @@
+{
+	"name" : "demo/send-push",
+	"description" : "Send push demo",
+	"authors" : [{
+			"name" : "Stefano",
+			"email" : "stefano73@outlook.com"
+		}
+	],
+	"minimum-stability" : "dev",
+	"autoload" : {
+		"psr-4" : {
+			"Demo\\SendPush\\" : "src/"
+		}
+	}
+}
