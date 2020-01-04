@@ -2,7 +2,8 @@
 
 ## Overview
 
-Send notifications using Laravel + SQS + SNS
+Send notifications using Laravel + SQS + SNS.
+You must have a running SQS queue, that will trigger the Lambda function which sends push notifications to mobile devices. 
 
 ## How to install
 
@@ -27,6 +28,10 @@ Send notifications using Laravel + SQS + SNS
 - Run migrations from command line
   ```
   php artisan migrate 
+  ```
+- Compile the project in the lambda directory using this command:
+  ```
+  mvn install 
   ```
 
 **Important!**
