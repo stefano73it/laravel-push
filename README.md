@@ -33,6 +33,7 @@ You must have a running SQS queue, that will trigger the Lambda function which s
   ```
   mvn install 
   ```
+  and upload it to your AWS Lambda function.
 
 **Important!**
 Push are sent to users having their push_arn_token field filled with the AWS ARN token of their mobile device!
